@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { EngineeringInput } from './EngineeringInput';
 
 const WEBHOOK_URL = 'https://syvairorpa.app.n8n.cloud/webhook/98faca23-7517-457a-ac1b-ff083485143c/chat';
@@ -12,6 +12,15 @@ interface Message {
 export function InputShowcase() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+    }
+  }, [messages, isLoading]);
 
   const handleSendMessage = async (message: string) => {
     if (!message.trim()) return;
@@ -70,16 +79,17 @@ export function InputShowcase() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50/30 relative overflow-hidden">
+    <div className="h-screen flex flex-col bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50/30 relative">
       {/* Decorative background elements */}
       <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] pointer-events-none"></div>
       <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-96 h-96 bg-gradient-to-br from-violet-200/40 to-fuchsia-200/40 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 w-96 h-96 bg-gradient-to-tr from-blue-200/40 to-cyan-200/40 rounded-full blur-3xl"></div>
 
-      <div className="flex-1 flex flex-col items-center p-6 sm:p-8 relative z-10">
-        <div className="max-w-5xl w-full flex flex-col h-full">
+      {/* Scrollable Content Container */}
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto relative z-10">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 py-6 sm:py-8 min-h-full flex flex-col">
           {/* Title Section */}
-          <div className="text-center space-y-6 mb-10">
+          <div className={`text-center space-y-6 flex-shrink-0 ${messages.length > 0 ? 'mb-8' : 'mb-10'}`}>
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-500/10 via-purple-500/10 to-fuchsia-500/10 border border-violet-200/50 backdrop-blur-sm">
               <div className="w-2 h-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 animate-pulse"></div>
@@ -88,25 +98,28 @@ export function InputShowcase() {
               </span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
+            <h1 className={`font-bold tracking-tight transition-all duration-300 ${messages.length > 0 ? 'text-3xl sm:text-4xl' : 'text-5xl sm:text-6xl lg:text-7xl'}`}>
               <span className="bg-gradient-to-r from-slate-900 via-violet-800 to-slate-900 bg-clip-text text-transparent leading-tight block">
                 Engineering Assistant
               </span>
             </h1>
-            <p className="text-slate-600 text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto font-light leading-relaxed">
-              Get instant answers on structural design, materials, load calculations,
-              <span className="text-violet-600 font-medium"> seismic analysis</span>, and engineering specifications
-            </p>
+
+            {messages.length === 0 && (
+              <p className="text-slate-600 text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto font-light leading-relaxed">
+                Get instant answers on structural design, materials, load calculations,
+                <span className="text-violet-600 font-medium"> seismic analysis</span>, and engineering specifications
+              </p>
+            )}
           </div>
 
           {/* Messages Area */}
           {messages.length > 0 && (
-            <div className="flex-1 overflow-y-auto mb-8 space-y-6 px-2">
+            <div className="space-y-6 mb-8">
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-4 duration-500`}
-                  style={{ animationDelay: `${idx * 0.1}s` }}
+                  style={{ animationDelay: `${idx * 0.05}s` }}
                 >
                   {msg.role === 'assistant' && (
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center mr-3 flex-shrink-0 shadow-lg">
@@ -133,6 +146,7 @@ export function InputShowcase() {
                   )}
                 </div>
               ))}
+
               {isLoading && (
                 <div className="flex justify-start animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center mr-3 flex-shrink-0 shadow-lg">
@@ -149,17 +163,13 @@ export function InputShowcase() {
                   </div>
                 </div>
               )}
+              <div ref={messagesEndRef} />
             </div>
           )}
 
-          {/* Input Component */}
-          <div className={messages.length > 0 ? 'mt-auto' : ''}>
-            <EngineeringInput onSendMessage={handleSendMessage} />
-          </div>
-
           {/* Feature Cards - Only show when no messages */}
           {messages.length === 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 mb-8">
               <div className="group bg-white/70 border border-slate-200/60 rounded-2xl p-8 backdrop-blur-xl hover:border-violet-300/70 hover:shadow-xl hover:shadow-violet-500/10 transition-all duration-500 hover:-translate-y-1">
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-violet-500/25">
                   <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -191,6 +201,13 @@ export function InputShowcase() {
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Fixed Input at Bottom - ChatGPT Style */}
+      <div className="flex-shrink-0 border-t border-slate-200/60 bg-white/80 backdrop-blur-xl relative z-20">
+        <div className="max-w-5xl mx-auto">
+          <EngineeringInput onSendMessage={handleSendMessage} />
         </div>
       </div>
     </div>
