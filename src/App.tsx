@@ -75,11 +75,6 @@ export const App = () => {
     window.location.reload();
   };
 
-  // Toggle between demo and chat
-  const toggleView = () => {
-    setShowDemo(!showDemo);
-  };
-
   if (showDemo) {
     return <InputShowcase />;
   }
