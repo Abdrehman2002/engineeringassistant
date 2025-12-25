@@ -22,6 +22,13 @@ export function InputShowcase() {
     }
   }, [messages, isLoading]);
 
+  // Trigger MathJax to render formulas after messages update
+  useEffect(() => {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise().catch((err: Error) => console.log('MathJax typeset error:', err));
+    }
+  }, [messages]);
+
   const handleSendMessage = async (message: string) => {
     if (!message.trim()) return;
 
