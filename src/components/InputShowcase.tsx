@@ -94,20 +94,20 @@ export function InputShowcase() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-500/10 via-purple-500/10 to-fuchsia-500/10 border border-violet-200/50 backdrop-blur-sm">
               <div className="w-2 h-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 animate-pulse"></div>
               <span className="text-sm font-medium bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
-                AI-Powered Engineering
+                AI-Powered API 650
               </span>
             </div>
 
             <h1 className={`font-bold tracking-tight transition-all duration-300 ${messages.length > 0 ? 'text-3xl sm:text-4xl' : 'text-5xl sm:text-6xl lg:text-7xl'}`}>
               <span className="bg-gradient-to-r from-slate-900 via-violet-800 to-slate-900 bg-clip-text text-transparent leading-tight block">
-                Engineering Assistant
+                API 650
               </span>
             </h1>
 
             {messages.length === 0 && (
               <p className="text-slate-600 text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto font-light leading-relaxed">
-                Get instant answers on structural design, materials, load calculations,
-                <span className="text-violet-600 font-medium"> seismic analysis</span>, and engineering specifications
+                Get instant answers on API 650 standards, tank design, material selection,
+                <span className="text-violet-600 font-medium"> seismic analysis</span>, and specifications
               </p>
             )}
           </div>
@@ -177,7 +177,7 @@ export function InputShowcase() {
                   </svg>
                 </div>
                 <h3 className="text-slate-900 font-bold text-lg mb-2 group-hover:text-violet-600 transition-colors">Instant Answers</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">Get engineering insights powered by advanced AI in real-time</p>
+                <p className="text-slate-600 text-sm leading-relaxed">Get API 650 insights powered by advanced AI in real-time</p>
               </div>
 
               <div className="group bg-white/70 border border-slate-200/60 rounded-2xl p-8 backdrop-blur-xl hover:border-fuchsia-300/70 hover:shadow-xl hover:shadow-fuchsia-500/10 transition-all duration-500 hover:-translate-y-1">
@@ -187,7 +187,7 @@ export function InputShowcase() {
                   </svg>
                 </div>
                 <h3 className="text-slate-900 font-bold text-lg mb-2 group-hover:text-fuchsia-600 transition-colors">Accurate Calculations</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">Precise engineering calculations and structural analysis</p>
+                <p className="text-slate-600 text-sm leading-relaxed">Precise tank design calculations and structural analysis</p>
               </div>
 
               <div className="group bg-white/70 border border-slate-200/60 rounded-2xl p-8 backdrop-blur-xl hover:border-blue-300/70 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-1">
@@ -197,7 +197,7 @@ export function InputShowcase() {
                   </svg>
                 </div>
                 <h3 className="text-slate-900 font-bold text-lg mb-2 group-hover:text-blue-600 transition-colors">Expert Knowledge</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">Access comprehensive engineering knowledge and standards</p>
+                <p className="text-slate-600 text-sm leading-relaxed">Access comprehensive API 650 knowledge and standards</p>
               </div>
             </div>
           )}

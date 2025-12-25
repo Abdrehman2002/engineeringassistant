@@ -35,16 +35,16 @@ export const App = () => {
 
       // Initial Messages
       initialMessages: [
-        'Hello! I\'m your Engineering Assistant.',
-        'I can help you with structural design, material selection, load calculations, seismic analysis, and engineering specifications.',
+        'Hello! I\'m your API 650 Assistant.',
+        'I can help you with API 650 standards, tank design, material selection, seismic analysis, and specifications.',
         'What would you like to know?'
       ],
 
       // Internationalization
       i18n: {
         en: {
-          title: 'Engineering Assistant',
-          subtitle: 'AI-powered engineering expertise',
+          title: 'API 650',
+          subtitle: 'AI-powered API 650 expertise',
           footer: '',
           getStarted: 'Start new conversation',
           inputPlaceholder: 'Ask anything...',
@@ -81,22 +81,7 @@ export const App = () => {
   };
 
   if (showDemo) {
-    return (
-      <>
-        <InputShowcase />
-        <button
-          onClick={toggleView}
-          className="fixed bottom-8 right-8 px-8 py-4 bg-gradient-to-br from-violet-600 via-purple-600 to-fuchsia-600 text-white rounded-2xl shadow-2xl shadow-violet-500/30 hover:shadow-violet-500/50 hover:scale-105 active:scale-95 transition-all duration-300 font-bold text-base z-50 border border-white/20 backdrop-blur-sm"
-        >
-          <span className="flex items-center gap-2">
-            Open Full Chat
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </span>
-        </button>
-      </>
-    );
+    return <InputShowcase />;
   }
 
   return (
@@ -127,7 +112,7 @@ export const App = () => {
               </svg>
             </div>
             <div className="brand-text">
-              <h3>Engineering Assistant</h3>
+              <h3>API 650</h3>
               <p>Powered by AI</p>
             </div>
           </div>
@@ -146,7 +131,7 @@ export const App = () => {
             </svg>
           </button>
           <div className="nav-title">
-            <span className="gradient-text">Engineering Assistant</span>
+            <span className="gradient-text">API 650</span>
           </div>
           <div style={{ width: '40px' }}></div>
         </nav>
