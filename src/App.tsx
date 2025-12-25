@@ -27,9 +27,6 @@ export const App = () => {
       // Input Configuration
       chatInputKey: 'chatInput',
 
-      // Streaming Support
-      enableStreaming: true,
-
       // Language
       defaultLanguage: 'en',
 
@@ -51,6 +48,7 @@ export const App = () => {
           footer: '',
           getStarted: 'Start new conversation',
           inputPlaceholder: 'Ask anything...',
+          closeButtonTooltip: 'Close chat',
         }
       },
 

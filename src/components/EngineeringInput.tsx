@@ -16,13 +16,12 @@ export function EngineeringInput({ onSendMessage }: EngineeringInputProps) {
     "Material selection for corrosive environments...",
   ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (_e: React.ChangeEvent<HTMLInputElement>) => {
     // Handle input change if needed
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
     const message = (e.currentTarget.querySelector('input') as HTMLInputElement)?.value;
     if (message?.trim()) {
       onSendMessage(message);
